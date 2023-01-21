@@ -32,7 +32,7 @@ class ProjectDetail(APIView):
 
     def get(self,request,pk):
         project= self.get_object(pk)
-        serializer=ProjectSerializer(project)
+        serializer=ProjectDetailSerializer(project)
         return Response(serializer.data)
 
 class PledgeList(generics.ListCreateAPIView):
@@ -42,5 +42,3 @@ class PledgeList(generics.ListCreateAPIView):
     def perform_create(self,serializer):
         serializer.save(supporter=self.request.user)
 
-class ProjectDetailSerializer(ProjectSerializer):
-    pledges=PledgeSerializer (many=True)
