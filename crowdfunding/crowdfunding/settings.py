@@ -28,7 +28,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG","False") !='False'
 
 ALLOWED_HOSTS = ['delicate-hill-5524.fly.dev']
 CORS_ALLOW_ALL_ORIGINS = True 
-CSRF_TRUSTED_ORIGINS = ['https://*.fly.dwv']
+CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 
 # Application definition
 
