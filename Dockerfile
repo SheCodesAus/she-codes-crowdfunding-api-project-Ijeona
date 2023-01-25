@@ -25,15 +25,3 @@ EXPOSE 8000
 
 # replace demo.wsgi with <project_name>.wsgi
 CMD ["/code/run.sh"]
-
-
-
-
-
-
-
-
-
-
-
-
