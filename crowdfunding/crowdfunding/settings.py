@@ -36,6 +36,7 @@ CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 INSTALLED_APPS = [
     'projects.apps.ProjectsConfig',
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken', 
     'corsheaders',
     'django.contrib.admin',
@@ -140,5 +141,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
     	   'rest_framework.authentication.TokenAuthentication',
     	   'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        
+    ],
 }
