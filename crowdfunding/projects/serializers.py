@@ -2,11 +2,6 @@ from rest_framework import serializers
 
 from .models import Project, Pledge
 
-class PledgeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Pledge
-        fields = ['id', 'amount', 'comment', 'anonymous', 'project', 'supporter']
-        read_only_fields=['id','supporter']
 class ProjectSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     title = serializers.CharField(max_length=200) 
@@ -29,6 +24,19 @@ class ProjectSerializer(serializers.Serializer):
         instance.is_open = validated_data.get('is_open', instance.is_open)
         instance.date_created = validated_data.get('date_created', instance.date_created)
         instance.owner = validated_data.get('owner', instance.owner)
+        instance.save()
+        return instance
+'''Pledge Serializer / Form'''
+class PledgeSerializer(serializers.ModelSerializer):
+    supporter = serializers.ReadOnlyField(source='supporter.username')
+    class Meta:
+        model = Pledge
+        # fields = ['id', 'amount', 'comment','anonymous', 'project', 'supporter']
+        # read_only_fields = ['id', 'supporter']  '''THIS LINE __all__ replaces the needs in the model.serializer to  the fields '''
+        fields = '__all__'
+    def create(self, validated_data):
+        return Pledge.objects.create(**validated_data)
+    def update(self, instance, validated_data):
         instance.save()
         return instance
 
