@@ -6,7 +6,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password']
         read_only_fields = ['id']
-        extra_kwargs = {"password":{"write_only":True}}
+        extra_kwargs = {
+           'first_name':{"write_only":True}, 
+           'last_name':{"write_only":True}, 
+           'password':{"write_only":True}
+            }
     # id = serializers.ReadOnlyField()
     # username = serializers.CharField(max_length=150)
     # email = serializers.EmailField()
@@ -21,9 +25,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.save()
         return user
         
+class CustomUserSerializerUpdate(CustomUserSerializer):
     def update(self, instance, validated_data):
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.username = validated_data.get('username',instance.username)
         instance.email = validated_data.get('email', instance.email)
         if password := validated_data.get('password'):
             instance.set_password(password)

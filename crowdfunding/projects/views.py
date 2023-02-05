@@ -46,14 +46,14 @@ class ProjectDetail(APIView):
 		project = self.get_object(pk)
 		data = request.data
 		serializer = ProjectDetailSerializer(
-		instance=project,
-		data=data,
+			instance=project,
+			data=data,
 			partial=True
 		)
 		if serializer.is_valid():
 			serializer.save()
-			return Response(serializer.data)
-		return Response(serializer.errors)
+			return Response(serializer.data, status=status.HTTP_200_OK)
+		return Response(serializer.error,status=status.HTTP_400_BAD_REQUEST)
 	
 	def delete(self, request,pk):
 		project = self.get_object(pk)
